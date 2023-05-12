@@ -16,6 +16,7 @@ from homeassistant.const import (
     CONF_PARAMS,
     CONF_PASSWORD,
     CONF_PAYLOAD,
+    CONF_PAYLOAD_TEMPLATE,
     CONF_RESOURCE,
     CONF_RESOURCE_TEMPLATE,
     CONF_SCAN_INTERVAL,
@@ -51,6 +52,8 @@ from .data import DEFAULT_TIMEOUT
 RESOURCE_SCHEMA = {
     vol.Exclusive(CONF_RESOURCE, CONF_RESOURCE): cv.url,
     vol.Exclusive(CONF_RESOURCE_TEMPLATE, CONF_RESOURCE): cv.template,
+    vol.Exclusive(CONF_PAYLOAD, CONF_PAYLOAD): cv.string,
+    vol.Exclusive(CONF_PAYLOAD_TEMPLATE, CONF_PAYLOAD): cv.template,
     vol.Optional(CONF_AUTHENTICATION): vol.In(
         [HTTP_BASIC_AUTHENTICATION, HTTP_DIGEST_AUTHENTICATION]
     ),
@@ -59,7 +62,6 @@ RESOURCE_SCHEMA = {
     vol.Optional(CONF_METHOD, default=DEFAULT_METHOD): vol.In(METHODS),
     vol.Optional(CONF_USERNAME): cv.string,
     vol.Optional(CONF_PASSWORD): cv.string,
-    vol.Optional(CONF_PAYLOAD): cv.string,
     vol.Optional(CONF_VERIFY_SSL, default=DEFAULT_VERIFY_SSL): cv.boolean,
     vol.Optional(
         CONF_SSL_CIPHER_LIST,
