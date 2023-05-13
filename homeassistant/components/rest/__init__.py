@@ -43,6 +43,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 from .const import (
     CONF_ENCODING,
+    CONF_PAYLOAD_TEMPLATE,
     CONF_SSL_CIPHER_LIST,
     COORDINATOR,
     DEFAULT_SSL_CIPHER_LIST,
@@ -186,6 +187,7 @@ def create_rest_data_from_config(hass: HomeAssistant, config: ConfigType) -> Res
     resource_template: template.Template | None = config.get(CONF_RESOURCE_TEMPLATE)
     method: str = config[CONF_METHOD]
     payload: str | None = config.get(CONF_PAYLOAD)
+    payload_template: template.Template | None = config.get(CONF_PAYLOAD_TEMPLATE)
     verify_ssl: bool = config[CONF_VERIFY_SSL]
     ssl_cipher_list: str = config.get(CONF_SSL_CIPHER_LIST, DEFAULT_SSL_CIPHER_LIST)
     username: str | None = config.get(CONF_USERNAME)
@@ -197,6 +199,10 @@ def create_rest_data_from_config(hass: HomeAssistant, config: ConfigType) -> Res
     if resource_template is not None:
         resource_template.hass = hass
         resource = resource_template.async_render(parse_result=False)
+
+    if payload_template is not None:
+        payload_template.hass = hass
+        payload = payload_template.async_render(parse_result=False)
 
     if not resource:
         raise HomeAssistantError("Resource not set for RestData")
