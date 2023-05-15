@@ -59,6 +59,7 @@ class RestEntity(Entity):
 
         if self._resource_template is not None:
             self.rest.set_url(self._resource_template.async_render(parse_result=False))
+
         await self.rest.async_update()
         self._update_from_rest_data()
 

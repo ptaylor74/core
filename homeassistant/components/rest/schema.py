@@ -37,7 +37,6 @@ from .const import (
     CONF_ENCODING,
     CONF_JSON_ATTRS,
     CONF_JSON_ATTRS_PATH,
-    CONF_PAYLOAD_TEMPLATE,
     CONF_SSL_CIPHER_LIST,
     DEFAULT_ENCODING,
     DEFAULT_FORCE_UPDATE,
@@ -52,8 +51,7 @@ from .data import DEFAULT_TIMEOUT
 RESOURCE_SCHEMA = {
     vol.Exclusive(CONF_RESOURCE, CONF_RESOURCE): cv.url,
     vol.Exclusive(CONF_RESOURCE_TEMPLATE, CONF_RESOURCE): cv.template,
-    vol.Exclusive(CONF_PAYLOAD, CONF_PAYLOAD): cv.string,
-    vol.Exclusive(CONF_PAYLOAD_TEMPLATE, CONF_PAYLOAD): cv.template,
+    vol.Exclusive(CONF_PAYLOAD, CONF_PAYLOAD): cv.template,
     vol.Optional(CONF_AUTHENTICATION): vol.In(
         [HTTP_BASIC_AUTHENTICATION, HTTP_DIGEST_AUTHENTICATION]
     ),

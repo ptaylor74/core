@@ -71,6 +71,9 @@ class RestData:
 
         rendered_headers = template.render_complex(self._headers, parse_result=False)
         rendered_params = template.render_complex(self._params)
+        rendered_request_data = template.render_complex(
+            self._request_data, parse_result=False
+        )
 
         _LOGGER.debug("Updating from %s", self._resource)
         try:
@@ -80,7 +83,7 @@ class RestData:
                 headers=rendered_headers,
                 params=rendered_params,
                 auth=self._auth,
-                content=self._request_data,
+                content=rendered_request_data,
                 timeout=self._timeout,
                 follow_redirects=True,
             )
